@@ -1,13 +1,37 @@
+import Image from "next/image"
 import { SearchIcon } from "lucide-react"
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
-import Image from "next/image"
-import { Card, CardContent } from "./_components/ui/card"
-import { Badge } from "./_components/ui/badge"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
+import BarbershopItem from "./_components/barbershop-item"
+import BookingItem from "./_components/booking-item"
 
-const Home = () => {
+import { db } from "./_lib/prisma"
+
+const bookings = [
+  {
+    confirm: "Confirmado",
+    service: "Corte de Cabelo",
+    barbershopName: "Barbearia FSW",
+    imageUrl: "https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png",
+    month: "Agosto",
+    day: "05",
+    hour: "20:20",
+  },
+  {
+    confirm: "Não Confirmado",
+    service: "Ajuste de Barba",
+    barbershopName: "Barbearia FSW",
+    imageUrl: "https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png",
+    month: "Agosto",
+    day: "05",
+    hour: "22:20",
+  },
+]
+
+const Home = async () => {
+  const barbershops = await db.barbershop.findMany({})
+
   return (
     <div>
       <Header />
@@ -35,28 +59,20 @@ const Home = () => {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Agendamentos
         </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {bookings.map((booking) => (
+            <BookingItem key={booking.barbershopName} booking={booking} />
+          ))}
+        </div>
 
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png" />
-                </Avatar>
-                <p className="text-sm">Barbearia FSW</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-10">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:20</p>
-            </div>
-          </CardContent>
-        </Card>
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Recomendados
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
     </div>
   )
