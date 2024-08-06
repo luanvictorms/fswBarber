@@ -7,6 +7,7 @@ import BarbershopItem from "./_components/barbershop-item"
 import BookingItem from "./_components/booking-item"
 
 import { db } from "./_lib/prisma"
+import Footer from "./_components/footer"
 
 const bookings = [
   {
@@ -31,11 +32,17 @@ const bookings = [
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
 
   return (
     <div>
       <Header />
 
+      {/* BODY */}
       <div className="p-5">
         <h2 className="text-xl font-bold">Olá, Luan!</h2>
         <p>Segunda-feira, 05 de agosto.</p>
@@ -73,7 +80,18 @@ const Home = async () => {
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
+
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Populares
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
