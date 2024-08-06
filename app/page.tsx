@@ -5,30 +5,13 @@ import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
 import BarbershopItem from "./_components/barbershop-item"
 import BookingItem from "./_components/booking-item"
-
 import { db } from "./_lib/prisma"
 import Footer from "./_components/footer"
-
-const bookings = [
-  {
-    confirm: "Confirmado",
-    service: "Corte de Cabelo",
-    barbershopName: "Barbearia FSW",
-    imageUrl: "https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png",
-    month: "Agosto",
-    day: "05",
-    hour: "20:20",
-  },
-  {
-    confirm: "Não Confirmado",
-    service: "Ajuste de Barba",
-    barbershopName: "Barbearia FSW",
-    imageUrl: "https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png",
-    month: "Agosto",
-    day: "05",
-    hour: "22:20",
-  },
-]
+import Title from "./_components/title"
+import FastSearchItem from "./_components/fastSearch-item"
+import { quickSearchOptions } from "./_constants/search"
+import { principalText } from "./_constants/principalText"
+import { bookings } from "./_constants/bookings"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -44,14 +27,27 @@ const Home = async () => {
 
       {/* BODY */}
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Luan!</h2>
-        <p>Segunda-feira, 05 de agosto.</p>
+        <Title
+          key={principalText.title}
+          title={principalText.title}
+          subtitle={principalText.subtitle}
+        />
 
         <div className="mt-6 flex items-center gap-2">
           <Input placeholder="faça sua busca..." />
           <Button>
             <SearchIcon />
           </Button>
+        </div>
+
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          {quickSearchOptions.map((option) => (
+            <FastSearchItem
+              key={option.title}
+              imageUrl={option.imageUrl}
+              title={option.title}
+            />
+          ))}
         </div>
 
         <div className="relative mt-6 h-[150px] w-full">
