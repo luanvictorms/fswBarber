@@ -15,12 +15,12 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
           <Image
             src={service.imageUrl}
             fill
-            className="rounded-xl object-cover"
+            className="rounded-lg object-cover"
             alt={service.name}
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="flex flex-1 flex-col space-y-3">
           <h3 className="text-sm font-semibold">{service.name}</h3>
           <p className="text-sm text-gray-400">{service.description}</p>
 
@@ -32,7 +32,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
               }).format(Number(service.price))}
             </p>
 
-            <Button variant={"secondary"} size="sm">
+            <Button variant="secondary" size="sm">
               Reservar
             </Button>
           </div>

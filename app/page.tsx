@@ -3,7 +3,6 @@ import Header from "./_components/header"
 import BarbershopItem from "./_components/barbershop-item"
 import BookingItem from "./_components/booking-item"
 import { db } from "./_lib/prisma"
-import Footer from "./_components/footer"
 import Title from "./_components/title"
 import FastSearchItem from "./_components/fastSearch-item"
 import { quickSearchOptions } from "./_constants/search"
@@ -79,8 +78,6 @@ const Home = async () => {
           ))}
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }
