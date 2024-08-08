@@ -7,7 +7,7 @@ const Title = ({ title, subtitle }: TitleProps) => {
   return (
     <>
       <h2 className="text-xl font-bold">{title}</h2>
-      <p>{subtitle}</p>
+      <p>{subtitle}a</p>
     </>
   )
 }

@@ -10,6 +10,7 @@ import { principalText } from "./_constants/principalText"
 import { bookings } from "./_constants/bookings"
 import Search from "./_components/search"
 import "./styles.css"
+import CategoryDivider from "./_components/categoryDivider"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -52,27 +53,21 @@ const Home = async () => {
           />
         </div>
 
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Agendamentos
-        </h2>
+        <CategoryDivider title={"Agendamentos"} />
         <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
           {bookings.map((booking) => (
             <BookingItem key={booking.barbershopName} booking={booking} />
           ))}
         </div>
 
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Recomendados
-        </h2>
+        <CategoryDivider title={"Recomendados"} />
         <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
           {barbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
 
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Populares
-        </h2>
+        <CategoryDivider title={"Populares"} />
         <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
           {popularBarbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
