@@ -9,6 +9,7 @@ import { quickSearchOptions } from "./_constants/search"
 import { principalText } from "./_constants/principalText"
 import { bookings } from "./_constants/bookings"
 import Search from "./_components/search"
+import "./styles.css"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -32,7 +33,7 @@ const Home = async () => {
 
         <Search />
 
-        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+        <div className="custom-scrollbar mt-6 flex gap-3 overflow-x-scroll pb-2">
           {quickSearchOptions.map((option) => (
             <FastSearchItem
               key={option.title}
@@ -54,7 +55,7 @@ const Home = async () => {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Agendamentos
         </h2>
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
           {bookings.map((booking) => (
             <BookingItem key={booking.barbershopName} booking={booking} />
           ))}
@@ -63,7 +64,7 @@ const Home = async () => {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
           {barbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
@@ -72,7 +73,7 @@ const Home = async () => {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Populares
         </h2>
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
           {popularBarbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}

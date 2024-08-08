@@ -2,10 +2,24 @@ import { Card, CardContent } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Avatar, AvatarImage } from "./ui/avatar"
 
-const BookingItem = ({ booking }) => {
+interface bookingItemProps {
+  confirm: string
+  service: string
+  barbershopName: string
+  imageUrl: string
+  month: string
+  day: string
+  hour: string
+}
+
+interface bookingItem {
+  booking: bookingItemProps
+}
+
+const BookingItem = ({ booking }: bookingItem) => {
   return (
     <>
-      <Card className="min-w-[468px]">
+      <Card className="min-w-[443px]">
         <CardContent className="flex justify-between p-0">
           <div className="flex flex-col gap-2 py-5 pl-5">
             <Badge className="w-fit">{booking.confirm}</Badge>

@@ -1,0 +1,21 @@
+/* Estiliza a barra de rolagem */
+.custom-scrollbar::-webkit-scrollbar {
+    height: 8px; /* Altura da barra de rolagem */
+    
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(228, 6%, 16%); /* Cor de fundo da trilha */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background:  hsl(252, 100%, 69%);
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(260, 100%, 69%); /* Cor da barra de rolagem ao passar o mouse */
+}
+
+/*----------------------------------------------------------------------------*/
