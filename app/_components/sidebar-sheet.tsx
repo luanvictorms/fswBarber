@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  CalendarIcon,
-  HomeIcon,
-  InstagramIcon,
-  LogInIcon,
-  LogOutIcon,
-} from "lucide-react"
+import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { SheetClose, SheetContent, SheetHeader } from "./ui/sheet"
 import Link from "next/link"
@@ -66,7 +60,12 @@ const SidebarButton = () => {
                   className="gap-1 font-bold"
                   onClick={handleLoginWithGoogleClick}
                 >
-                  <InstagramIcon />
+                  <Image
+                    src="./google.svg"
+                    alt="Faça login com o Google"
+                    width={18}
+                    height={18}
+                  />
                   Google
                 </Button>
               </DialogContent>
