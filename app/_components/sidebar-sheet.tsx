@@ -1,3 +1,5 @@
+"use client"
+
 import {
   CalendarIcon,
   HomeIcon,
@@ -18,8 +20,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog"
+import { signIn } from "next-auth/react"
 
 const SidebarButton = () => {
+  const handleLoginWithGoogleClick = () => signIn("google")
+
   return (
     <SheetContent className="overflow-y-auto">
       <SheetHeader className="text-left">Menu</SheetHeader>
@@ -40,7 +45,11 @@ const SidebarButton = () => {
               </DialogDescription>
             </DialogHeader>
 
-            <Button variant={"outline"} className="gap-1 font-bold">
+            <Button
+              variant={"outline"}
+              className="gap-1 font-bold"
+              onClick={handleLoginWithGoogleClick}
+            >
               <InstagramIcon />
               Google
             </Button>
