@@ -32,7 +32,9 @@ const Home = async () => {
           subtitle={principalText.subtitle}
         />
 
-        <Search />
+        <div className="mt-6">
+          <Search />
+        </div>
 
         <div className="custom-scrollbar mt-6 flex gap-3 overflow-x-scroll pb-2">
           {quickSearchOptions.map((option) => (
