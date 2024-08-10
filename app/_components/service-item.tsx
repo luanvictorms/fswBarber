@@ -137,7 +137,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       //Função server side que adiciona os dados no banco de dados
       await createBooking({
         serviceId: service.id,
-        userId: (data?.user as any).id,
         date: newDate,
       })
       toast.success("Reserva criada com sucesso!")
