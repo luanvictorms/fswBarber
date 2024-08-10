@@ -36,7 +36,7 @@ const Home = async () => {
           <Search />
         </div>
 
-        <div className="custom-scrollbar mt-6 flex gap-3 overflow-x-scroll pb-2">
+        <div className="mt-6 flex gap-3 overflow-x-scroll pb-2 [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option) => (
             <FastSearchItem
               key={option.title}
@@ -56,21 +56,21 @@ const Home = async () => {
         </div>
 
         <CategoryDivider title={"Agendamentos"} />
-        <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
+        <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
           {bookings.map((booking) => (
             <BookingItem key={booking.barbershopName} booking={booking} />
           ))}
         </div>
 
         <CategoryDivider title={"Recomendados"} />
-        <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
+        <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
 
         <CategoryDivider title={"Populares"} />
-        <div className="custom-scrollbar flex gap-4 overflow-auto pb-2">
+        <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
           {popularBarbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
