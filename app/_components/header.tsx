@@ -15,16 +15,17 @@ const Header = () => {
         </Link>
 
         <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute right-4 top-4"
-            >
-              <MenuIcon />
-            </Button>
-          </SheetTrigger>
-
+          <div>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute right-4 top-4"
+              >
+                <MenuIcon />
+              </Button>
+            </SheetTrigger>
+          </div>
           <SidebarSheet />
         </Sheet>
       </CardContent>

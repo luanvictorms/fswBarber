@@ -53,6 +53,7 @@ const TIME_LIST = [
 ]
 
 const getTimeList = (bookings: Booking[]) => {
+  //TODO: Não exibir horarios no passado.
   return TIME_LIST.filter((time) => {
     const hour = Number(time.split(":")[0])
     const minutes = Number(time.split(":")[1])
@@ -281,9 +282,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                   {selectedDay && selectedTime && (
                     <SheetFooter className="mt-5 px-5">
-                      <SheetClose asChild>
+                      <SheetClose>
                         <Button
                           type="submit"
+                          className="w-full"
                           onClick={handleCreateBooking}
                           disabled={!selectedDay || !selectedTime}
                         >

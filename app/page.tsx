@@ -55,6 +55,7 @@ const Home = async () => {
           />
         </div>
 
+        {/* TODO: Mostrar somente os agendamentos que do usuario logado: e se ele tiver agendamentos*/}
         <CategoryDivider title={"Agendamentos"} />
         <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
           {bookings.map((booking) => (
