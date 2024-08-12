@@ -83,9 +83,15 @@ const Home = async () => {
           <>
             <CategoryDivider title={"Agendamentos"} />
             <div className="flex gap-3 overflow-auto [&::-webkit-scrollbar]:hidden">
-              {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))}
+              {confirmedBookings && confirmedBookings.length > 0 ? (
+                confirmedBookings.map((booking) => (
+                  <BookingItem key={booking.id} booking={booking} />
+                ))
+              ) : (
+                <p className="mt-2 text-sm text-gray-400">
+                  Oops! Você ainda não possui nenhum agendamento...
+                </p>
+              )}
             </div>
           </>
         )}

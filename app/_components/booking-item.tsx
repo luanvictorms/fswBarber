@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Avatar, AvatarImage } from "./ui/avatar"
@@ -6,13 +8,18 @@ import { format, isFuture } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import {
   Sheet,
+  SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet"
 import Image from "next/image"
 import PhoneItem from "./phone-item"
+import { Button } from "./ui/button"
+import { deleteBooking } from "../_actions/delete-booking"
+import { toast } from "sonner"
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -29,6 +36,19 @@ const BookingItem = ({ booking }: BookingItemProps) => {
     service: { barbershop },
   } = booking
   const isConfirmed = isFuture(booking.date)
+
+  const handleDeleteBooking = async () => {
+    try {
+      //Função server side que adiciona os dados no banco de dados
+      await deleteBooking({
+        booking: booking,
+      })
+      toast.success("Reserva cancelada com sucesso!")
+    } catch (error) {
+      console.error(error)
+      toast.error("Erro ao cancelar reserva!")
+    }
+  }
 
   return (
     <>
@@ -149,6 +169,17 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               <PhoneItem phone={phone} key={index} />
             ))}
           </div>
+          <SheetFooter className="mt-5 px-5">
+            <SheetClose asChild>
+              <Button
+                type="submit"
+                className="w-full"
+                onClick={handleDeleteBooking}
+              >
+                Cancelar agendamento
+              </Button>
+            </SheetClose>
+          </SheetFooter>
         </SheetContent>
       </Sheet>
     </>
