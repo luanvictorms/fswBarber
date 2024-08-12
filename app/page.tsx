@@ -3,15 +3,15 @@ import Header from "./_components/header"
 import BarbershopItem from "./_components/barbershop-item"
 import BookingItem from "./_components/booking-item"
 import { db } from "./_lib/prisma"
-import Title from "./_components/title"
 import FastSearchItem from "./_components/fastSearch-item"
 import { quickSearchOptions } from "./_constants/search"
-import { principalText } from "./_constants/principalText"
 import Search from "./_components/search"
 import "./styles.css"
 import CategoryDivider from "./_components/categoryDivider"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -50,11 +50,10 @@ const Home = async () => {
 
       {/* BODY */}
       <div className="p-5">
-        <Title
-          key={principalText.title}
-          title={principalText.title}
-          subtitle={principalText.subtitle}
-        />
+        <h2 className="text-xl font-bold">
+          Olá, {session?.user ? session.user.name : "bem vindo"}
+        </h2>
+        <p>{format(new Date(), "EEEE, dd 'de' MMMM", { locale: ptBR })}</p>
 
         <div className="mt-6">
           <Search />
