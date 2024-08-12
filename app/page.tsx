@@ -7,10 +7,11 @@ import Title from "./_components/title"
 import FastSearchItem from "./_components/fastSearch-item"
 import { quickSearchOptions } from "./_constants/search"
 import { principalText } from "./_constants/principalText"
-import { bookings } from "./_constants/bookings"
 import Search from "./_components/search"
 import "./styles.css"
 import CategoryDivider from "./_components/categoryDivider"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./_lib/auth"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -19,6 +20,29 @@ const Home = async () => {
       name: "desc",
     },
   })
+
+  const session = await getServerSession(authOptions)
+
+  const confirmedBookings = session?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (session?.user as any).id,
+          date: {
+            gte: new Date(),
+          },
+        },
+        orderBy: {
+          date: "asc",
+        },
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+      })
+    : []
 
   return (
     <div>
@@ -36,7 +60,7 @@ const Home = async () => {
           <Search />
         </div>
 
-        <div className="mt-6 flex gap-3 overflow-x-scroll pb-2 [&::-webkit-scrollbar]:hidden">
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option) => (
             <FastSearchItem
               key={option.title}
@@ -55,23 +79,26 @@ const Home = async () => {
           />
         </div>
 
-        {/* TODO: Mostrar somente os agendamentos que do usuario logado: e se ele tiver agendamentos*/}
-        <CategoryDivider title={"Agendamentos"} />
-        <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
-          {bookings.map((booking) => (
-            <BookingItem key={booking.barbershopName} booking={booking} />
-          ))}
-        </div>
+        {session?.user && (
+          <>
+            <CategoryDivider title={"Agendamentos"} />
+            <div className="flex gap-3 overflow-auto [&::-webkit-scrollbar]:hidden">
+              {confirmedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
+          </>
+        )}
 
         <CategoryDivider title={"Recomendados"} />
-        <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
 
         <CategoryDivider title={"Populares"} />
-        <div className="flex gap-4 overflow-auto pb-2 [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {popularBarbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
