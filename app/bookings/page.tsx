@@ -55,17 +55,33 @@ const BookingsPage = async () => {
   return (
     <>
       <Header />
-      <div className="space-y-3 p-5">
+      <div className="p-5">
         <h2 className="text-xl font-bold">Agendamentos</h2>
         <CategoryDivider title={"Confirmados"} />
-        {confirmedBookings.map((booking) => (
-          <BookingItem key={booking.id} booking={booking} />
-        ))}
+        {confirmedBookings && confirmedBookings.length > 0 ? (
+          <div className="space-y-3">
+            {confirmedBookings.map((booking) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400">
+            Você não possui agendamentos confirmados!
+          </p>
+        )}
 
         <CategoryDivider title={"Finalizados"} />
-        {finalizedBookings.map((booking) => (
-          <BookingItem key={booking.id} booking={booking} />
-        ))}
+        {finalizedBookings && finalizedBookings.length > 0 ? (
+          <div className="space-y-3">
+            {finalizedBookings.map((booking) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400">
+            Você não possui agendamentos finalizados!
+          </p>
+        )}
       </div>
     </>
   )
