@@ -35,20 +35,19 @@ const TIME_LIST = [
   "09:30",
   "10:00",
   "11:00",
-  "11:00",
+  "11:30",
   "12:00",
-  "12:00",
+  "12:30",
   "13:00",
-  "13:00",
+  "13:30",
   "14:00",
-  "14:00",
+  "14:30",
   "15:00",
-  "15:00",
+  "15:30",
   "16:00",
-  "16:00",
+  "16:30",
   "17:00",
-  "17:00",
-  "18:00",
+  "17:30",
   "18:00",
 ]
 
@@ -102,6 +101,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         date: selectedDay,
         serviceId: service.id,
       })
+
       setDayBookings(bookings)
     }
     fetch()
@@ -162,6 +162,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const timeList = useMemo(() => {
     if (!selectedDay) return []
+    console.log(selectedDay)
     return getTimeList({
       bookings: dayBookings,
       selectedDay,
@@ -245,7 +246,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                   {selectedDay && (
                     <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 px-5 [&::-webkit-scrollbar]:hidden">
-                      {timeList.length > 0 ? (
+                      {timeList && timeList.length > 0 ? (
                         timeList.map((time) => (
                           <Button
                             key={time}
