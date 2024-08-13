@@ -25,7 +25,7 @@ import SignInDialog from "./sign-in-dialog"
 
 interface ServiceItemProps {
   service: BarbershopService
-  barbershop: Pick<Barbershop, "name">
+  barbershop: Pick<Barbershop, "name" | "id">
 }
 
 const TIME_LIST = [
@@ -100,6 +100,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       const bookings = await getBookings({
         date: selectedDay,
         serviceId: service.id,
+        barbershopId: barbershop.id,
       })
 
       setDayBookings(bookings)
